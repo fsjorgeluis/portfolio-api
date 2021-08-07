@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './config/database/configuration.module';
 import { DatabaseService } from './config/database/configuration.service';
 import { ProfileModule } from './profile/profile.module';
+import { NetworkModule } from './network/network.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProfileModule } from './profile/profile.module';
       inject: [DatabaseService],
     }),
     ProfileModule,
+    NetworkModule,
   ],
   controllers: [AppController],
   providers: [AppService],

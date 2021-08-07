@@ -9,13 +9,21 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ObjectId, PaginateResult, UpdateWriteOpResult } from 'mongoose';
+import { SanitizeMongooseModelInterceptor } from 'nestjs-mongoose-exclude';
 import { CreateProfileDTO, EditProfileDTO } from './dtos';
-import { IRemove } from './interfaces';
+import { IRemove } from '../interfaces';
 import { ProfileService } from './profile.service';
 import { Profile, ProfileDocument } from './schema/profile.schema';
 
+@UseInterceptors(
+  new SanitizeMongooseModelInterceptor({
+    excludeMongooseId: false,
+    excludeMongooseV: true,
+  }),
+)
 @Controller({ version: '1', path: 'profile' })
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
@@ -38,16 +46,16 @@ export class ProfileController {
     return this.profileService.findOne(gitUser);
   }
 
-  @Patch(':id')
+  @Patch(':profileId')
   update(
-    @Param('id') id: ObjectId,
+    @Param('profileId') profileId: ObjectId,
     @Body() updateProfile: EditProfileDTO,
   ): Promise<UpdateWriteOpResult> {
-    return this.profileService.update(id, updateProfile);
+    return this.profileService.update(profileId, updateProfile);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: ObjectId): Promise<IRemove> {
-    return this.profileService.remove(id);
+  @Delete(':profileId')
+  remove(@Param('profileId') profileId: ObjectId): Promise<IRemove> {
+    return this.profileService.remove(profileId);
   }
 }

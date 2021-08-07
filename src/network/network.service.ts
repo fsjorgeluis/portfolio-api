@@ -12,34 +12,25 @@ import {
   PaginateResult,
   UpdateWriteOpResult,
 } from 'mongoose';
-import { CreateProfileDTO, EditProfileDTO } from './dtos';
-import { IPaginationOptions, IRemove } from '../interfaces';
-import { Profile, ProfileDocument } from './schema/profile.schema';
+import { IPaginationOptions, IRemove } from 'src/interfaces';
+import { CreateNetworkDTO, EditNetworkDTO } from './dtos';
+import { Network, NetworkDocument } from './schema/network.schema';
 
 @Injectable()
-export class ProfileService {
+export class NetworkService {
   constructor(
-    @InjectModel(Profile.name)
-    private profileModel: PaginateModel<ProfileDocument>,
+    @InjectModel(Network.name)
+    private networkModel: PaginateModel<NetworkDocument>,
   ) {}
 
-  async create(createProfile: CreateProfileDTO): Promise<Profile> {
+  async create(id: ObjectId, network: CreateNetworkDTO): Promise<Network> {
     try {
-      const exists = await this.profileModel.findOne({
-        gitUser: createProfile.gitUser,
-      });
-      if (exists) throw new ConflictException();
+      const socialMedia = Object.assign(network, id);
+      const newNetwork = new this.networkModel(socialMedia);
+      await newNetwork.save();
 
-      const newProfile = new this.profileModel(createProfile);
-      await newProfile.save();
-
-      return newProfile;
+      return newNetwork;
     } catch (error) {
-      if (error.status === 409)
-        throw new ConflictException(
-          'Ya estos datos se encuentran registrados!.',
-        );
-
       if (error.code === 'ER_NO_DEFAULT_FOR_FIELD')
         throw new NotAcceptableException(
           'Uno de los campos requeridos está en blanco!',
@@ -51,20 +42,20 @@ export class ProfileService {
 
   async findAll(
     options: IPaginationOptions,
-  ): Promise<PaginateResult<ProfileDocument>> {
+  ): Promise<PaginateResult<NetworkDocument>> {
     try {
-      return this.profileModel.paginate({}, options);
+      return this.networkModel.paginate({}, options);
     } catch (error) {
       throw new InternalServerErrorException();
     }
   }
 
-  async findOne(gitUser: string): Promise<ProfileDocument> {
+  async findOne(id: ObjectId): Promise<NetworkDocument> {
     try {
-      const profile = await this.profileModel.findOne({ gitUser }).exec();
-      if (!profile) throw new NotFoundException();
+      const network = await this.networkModel.findOne({ _id: id }).exec();
+      if (!network) throw new NotFoundException();
 
-      return profile;
+      return network;
     } catch (error) {
       if (error.status === 404)
         throw new NotFoundException('El perfil no se encuentra registrado!');
@@ -75,14 +66,14 @@ export class ProfileService {
 
   async update(
     id: ObjectId,
-    updateProfile: EditProfileDTO,
+    updateNetwork: EditNetworkDTO,
   ): Promise<UpdateWriteOpResult> {
     try {
-      const profile = await this.profileModel.findById(id);
-      if (!profile) throw new NotFoundException();
-      // const profileUpdate = Object.assign(profile, updateProfile);
-      // return await this.profileModel.updateOne({}, profileUpdate);
-      return await this.profileModel.updateOne({ _id: id }, updateProfile);
+      const socialMedia = await this.networkModel.findById(id);
+      if (!socialMedia) throw new NotFoundException();
+      const socialUpdate = Object.assign(socialMedia, updateNetwork);
+      return await this.networkModel.updateOne({}, socialUpdate);
+      // return await this.networkModel.updateOne({ _id: id }, updateNetwork);
     } catch (error) {
       if (error.status === 404)
         throw new NotFoundException(
@@ -100,7 +91,7 @@ export class ProfileService {
 
   async remove(id: ObjectId): Promise<IRemove> {
     try {
-      return this.profileModel.deleteOne({ _id: id });
+      return this.networkModel.deleteOne({ _id: id });
     } catch (error) {
       if (error.status === 404)
         throw new NotFoundException(

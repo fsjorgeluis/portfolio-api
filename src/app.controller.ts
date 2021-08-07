@@ -15,10 +15,10 @@ export class AppController {
     return this.appService.getPortfolio(gitUser);
   }
 
-  @Get('/profile')
-  getProfile(): any {
-    return this.appService.getProfile();
-  }
+  // @Get('/profile')
+  // getProfile(): any {
+  //   return this.appService.getProfile();
+  // }
 
   @Get('/socialMedia')
   getSocialMedia(): any {

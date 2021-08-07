@@ -20,15 +20,15 @@ export class AppController {
   //   return this.appService.getProfile();
   // }
 
-  @Get('/socialMedia')
-  getSocialMedia(): any {
-    return this.appService.getSocialMedia();
-  }
+  // @Get('/socialMedia')
+  // getSocialMedia(): any {
+  //   return this.appService.getSocialMedia();
+  // }
 
-  @Get('/work')
-  getWork(): any {
-    return this.appService.getWork();
-  }
+  // @Get('/work')
+  // getWork(): any {
+  //   return this.appService.getWork();
+  // }
 
   @Get('/aptitude')
   getAptitude(): any {

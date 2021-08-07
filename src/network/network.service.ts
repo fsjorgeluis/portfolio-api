@@ -58,7 +58,9 @@ export class NetworkService {
       return network;
     } catch (error) {
       if (error.status === 404)
-        throw new NotFoundException('El perfil no se encuentra registrado!');
+        throw new NotFoundException(
+          'La red social no se encuentra registrado!',
+        );
 
       throw new InternalServerErrorException();
     }
@@ -72,12 +74,11 @@ export class NetworkService {
       const socialMedia = await this.networkModel.findById(id);
       if (!socialMedia) throw new NotFoundException();
       const socialUpdate = Object.assign(socialMedia, updateNetwork);
-      return await this.networkModel.updateOne({}, socialUpdate);
-      // return await this.networkModel.updateOne({ _id: id }, updateNetwork);
+      return await this.networkModel.updateOne({ _id: id }, socialUpdate);
     } catch (error) {
       if (error.status === 404)
         throw new NotFoundException(
-          'El perfil que intenta actualizar no existe!',
+          'La red social que intenta actualizar no existe!',
         );
 
       if (error.code === 11000 || error.status === 409)
@@ -95,7 +96,7 @@ export class NetworkService {
     } catch (error) {
       if (error.status === 404)
         throw new NotFoundException(
-          'El perfil que intenta eliminar no existe!',
+          'La red social que intenta eliminar no existe!',
         );
 
       throw new InternalServerErrorException();

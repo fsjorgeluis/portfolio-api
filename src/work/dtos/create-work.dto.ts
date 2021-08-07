@@ -1,6 +1,6 @@
 import { IsMongoId, IsString } from 'class-validator';
 
-export class CreateNetworkDTO {
+export class CreateWorkDTO {
   @IsString()
   src: string;
 
@@ -9,6 +9,9 @@ export class CreateNetworkDTO {
 
   @IsString()
   link: string;
+
+  @IsString()
+  category: string;
 
   @IsString()
   @IsMongoId()

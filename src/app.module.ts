@@ -7,6 +7,7 @@ import { DatabaseModule } from './config/database/configuration.module';
 import { DatabaseService } from './config/database/configuration.service';
 import { ProfileModule } from './profile/profile.module';
 import { NetworkModule } from './network/network.module';
+import { WorkModule } from './work/work.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { NetworkModule } from './network/network.module';
     }),
     ProfileModule,
     NetworkModule,
+    WorkModule,
   ],
   controllers: [AppController],
   providers: [AppService],

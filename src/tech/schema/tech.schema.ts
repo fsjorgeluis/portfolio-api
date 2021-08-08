@@ -3,10 +3,10 @@ import * as mongoose from 'mongoose';
 import { ExcludeProperty } from 'nestjs-mongoose-exclude';
 import { Profile } from 'src/profile/schema/profile.schema';
 
-export type AptitudeDocument = Aptitude & mongoose.Document;
+export type TechDocument = Tech & mongoose.Document;
 
 @Schema()
-export class Aptitude {
+export class Tech {
   @Prop({ type: String })
   src: string;
 
@@ -21,4 +21,4 @@ export class Aptitude {
   gitUser: Profile;
 }
 
-export const AptitudeSchema = SchemaFactory.createForClass(Aptitude);
+export const TechSchema = SchemaFactory.createForClass(Tech);

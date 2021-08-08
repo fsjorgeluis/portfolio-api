@@ -30,13 +30,13 @@ export class AppController {
   //   return this.appService.getWork();
   // }
 
-  @Get('/aptitude')
-  getAptitude(): any {
-    return this.appService.getAptitude();
-  }
+  // @Get('/aptitude')
+  // getAptitude(): any {
+  //   return this.appService.getAptitude();
+  // }
 
-  @Get('/tech')
-  getTech(): any {
-    return this.appService.getTech();
-  }
+  // @Get('/tech')
+  // getTech(): any {
+  //   return this.appService.getTech();
+  // }
 }

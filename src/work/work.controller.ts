@@ -29,7 +29,7 @@ import { WorkService } from './work.service';
 export class WorkController {
   constructor(private workService: WorkService) {}
 
-  @Post(':userId')
+  @Post()
   create(@Request() req, @Body() work: CreateWorkDTO): Promise<Work> {
     const { userId }: { userId: ObjectId } = req;
     return this.workService.create(userId, work);

@@ -8,6 +8,8 @@ import { DatabaseService } from './config/database/configuration.service';
 import { ProfileModule } from './profile/profile.module';
 import { NetworkModule } from './network/network.module';
 import { WorkModule } from './work/work.module';
+import { AptitudeModule } from './aptitude/aptitude.module';
+import { TechModule } from './tech/tech.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { WorkModule } from './work/work.module';
     ProfileModule,
     NetworkModule,
     WorkModule,
+    AptitudeModule,
+    TechModule,
   ],
   controllers: [AppController],
   providers: [AppService],

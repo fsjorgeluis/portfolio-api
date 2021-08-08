@@ -29,7 +29,7 @@ export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
   @Post()
-  create(@Body() createProfile: CreateProfileDTO): Promise<Profile> {
+  async create(@Body() createProfile: CreateProfileDTO): Promise<Profile> {
     return this.profileService.create(createProfile);
   }
 
@@ -47,7 +47,7 @@ export class ProfileController {
   }
 
   @Patch(':profileId')
-  update(
+  async update(
     @Param('profileId') profileId: ObjectId,
     @Body() updateProfile: EditProfileDTO,
   ): Promise<UpdateWriteOpResult> {
@@ -55,7 +55,7 @@ export class ProfileController {
   }
 
   @Delete(':profileId')
-  remove(@Param('profileId') profileId: ObjectId): Promise<IRemove> {
+  async remove(@Param('profileId') profileId: ObjectId): Promise<IRemove> {
     return this.profileService.remove(profileId);
   }
 }

@@ -24,5 +24,6 @@ import { Work, WorkSchema } from './schema/work.schema';
   ],
   providers: [WorkService],
   controllers: [WorkController],
+  exports: [MongooseModule],
 })
 export class WorkModule {}

@@ -30,7 +30,10 @@ export class NetworkController {
   constructor(private networkService: NetworkService) {}
 
   @Post()
-  create(@Request() req, @Body() network: CreateNetworkDTO): Promise<Network> {
+  async create(
+    @Request() req,
+    @Body() network: CreateNetworkDTO,
+  ): Promise<Network> {
     const { userId }: { userId: ObjectId } = req;
     return this.networkService.create(userId, network);
   }
@@ -51,7 +54,7 @@ export class NetworkController {
   }
 
   @Patch(':networkId')
-  update(
+  async update(
     @Param('networkId') id: ObjectId,
     @Body() updateNetwork: EditNetworkDTO,
   ): Promise<UpdateWriteOpResult> {
@@ -59,7 +62,7 @@ export class NetworkController {
   }
 
   @Delete(':networkId')
-  remove(@Param('networkId') networkId: ObjectId): Promise<IRemove> {
+  async remove(@Param('networkId') networkId: ObjectId): Promise<IRemove> {
     return this.networkService.remove(networkId);
   }
 }

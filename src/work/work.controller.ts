@@ -30,7 +30,7 @@ export class WorkController {
   constructor(private workService: WorkService) {}
 
   @Post()
-  create(@Request() req, @Body() work: CreateWorkDTO): Promise<Work> {
+  async create(@Request() req, @Body() work: CreateWorkDTO): Promise<Work> {
     const { userId }: { userId: ObjectId } = req;
     return this.workService.create(userId, work);
   }
@@ -58,7 +58,7 @@ export class WorkController {
   }
 
   @Patch(':projectId')
-  update(
+  async update(
     @Param('projectId') projectId: ObjectId,
     @Body() updateWork: EditWorkDTO,
   ): Promise<UpdateWriteOpResult> {
@@ -66,7 +66,7 @@ export class WorkController {
   }
 
   @Delete(':projectId')
-  remove(@Param('projectId') projectId: ObjectId): Promise<IRemove> {
+  async remove(@Param('projectId') projectId: ObjectId): Promise<IRemove> {
     return this.workService.remove(projectId);
   }
 }

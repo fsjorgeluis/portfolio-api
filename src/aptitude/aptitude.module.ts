@@ -24,5 +24,6 @@ import { Aptitude, AptitudeSchema } from './schema/aptitude.schema';
   ],
   controllers: [AptitudeController],
   providers: [AptitudeService],
+  exports: [MongooseModule],
 })
 export class AptitudeModule {}

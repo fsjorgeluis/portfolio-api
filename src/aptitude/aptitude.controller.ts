@@ -30,7 +30,10 @@ export class AptitudeController {
   constructor(private aptitudeService: AptitudeService) {}
 
   @Post()
-  create(@Request() req, @Body() work: CreateAptitudeDTO): Promise<Aptitude> {
+  async create(
+    @Request() req,
+    @Body() work: CreateAptitudeDTO,
+  ): Promise<Aptitude> {
     const { userId }: { userId: ObjectId } = req;
     return this.aptitudeService.create(userId, work);
   }
@@ -58,7 +61,7 @@ export class AptitudeController {
   }
 
   @Patch(':aptitudeId')
-  update(
+  async update(
     @Param('aptitudeId') aptitudeId: ObjectId,
     @Body() updateWork: EditAptitudeDTO,
   ): Promise<UpdateWriteOpResult> {
@@ -66,7 +69,7 @@ export class AptitudeController {
   }
 
   @Delete(':aptitudeId')
-  remove(@Param('aptitudeId') aptitudeId: ObjectId): Promise<IRemove> {
+  async remove(@Param('aptitudeId') aptitudeId: ObjectId): Promise<IRemove> {
     return this.aptitudeService.remove(aptitudeId);
   }
 }

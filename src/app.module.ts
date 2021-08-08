@@ -10,6 +10,7 @@ import { NetworkModule } from './network/network.module';
 import { WorkModule } from './work/work.module';
 import { AptitudeModule } from './aptitude/aptitude.module';
 import { TechModule } from './tech/tech.module';
+// import { PortfolioModule } from './portfolio/portfolio.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TechModule } from './tech/tech.module';
     WorkModule,
     AptitudeModule,
     TechModule,
+    // PortfolioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

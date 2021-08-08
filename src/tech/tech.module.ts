@@ -24,5 +24,6 @@ import { TechService } from './tech.service';
   ],
   controllers: [TechController],
   providers: [TechService],
+  exports: [MongooseModule],
 })
 export class TechModule {}

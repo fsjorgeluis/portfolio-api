@@ -132,30 +132,7 @@ export class AppService {
     },
   ];
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   getPortfolio(gitUser: string): any {
     return this.portfolio.find((item) => item.profile[0].gitUser === gitUser);
-  }
-
-  getProfile(): any {
-    return this.profile;
-  }
-
-  getSocialMedia(): any {
-    return this.socialMedia;
-  }
-
-  getWork(): any {
-    return this.work;
-  }
-
-  getAptitude(): any {
-    return this.aptitude;
-  }
-  getTech(): any {
-    return this.tech;
   }
 }

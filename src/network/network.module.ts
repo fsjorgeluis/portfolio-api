@@ -27,5 +27,6 @@ import { Network, NetworkSchema } from './schema/network.schema';
   ],
   controllers: [NetworkController],
   providers: [NetworkService],
+  exports: [MongooseModule],
 })
 export class NetworkModule {}

@@ -1,42 +1,29 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Request } from '@nestjs/common';
+import { Request as ExpressRequest, Router } from 'express';
 import { AppService } from './app.service';
 
-@Controller('v1')
+@Controller({ version: '1' })
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  root(@Request() req: ExpressRequest) {
+    const router = req.app._router as Router;
+    return {
+      routes: router.stack
+        .map((layer) => {
+          if (layer.route) {
+            const path = layer.route?.path;
+            const method = layer.route?.stack[0].method;
+            return `${method.toUpperCase()} ${path}`;
+          }
+        })
+        .filter((item) => item !== undefined),
+    };
   }
 
-  @Get('/portfolio/:gitUser')
-  getPortfolio(@Param('gitUser') gitUser: string): any {
-    return this.appService.getPortfolio(gitUser);
-  }
-
-  // @Get('/profile')
-  // getProfile(): any {
-  //   return this.appService.getProfile();
-  // }
-
-  // @Get('/socialMedia')
-  // getSocialMedia(): any {
-  //   return this.appService.getSocialMedia();
-  // }
-
-  // @Get('/work')
-  // getWork(): any {
-  //   return this.appService.getWork();
-  // }
-
-  // @Get('/aptitude')
-  // getAptitude(): any {
-  //   return this.appService.getAptitude();
-  // }
-
-  // @Get('/tech')
-  // getTech(): any {
-  //   return this.appService.getTech();
+  // @Get('/portfolio/:gitUser')
+  // getPortfolio(@Param('gitUser') gitUser: string): any {
+  //   return this.appService.getPortfolio(gitUser);
   // }
 }

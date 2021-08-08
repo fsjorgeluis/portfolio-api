@@ -27,6 +27,6 @@ import { Profile, ProfileSchema } from './schema/profile.schema';
   ],
   controllers: [ProfileController],
   providers: [ProfileService],
-  // exports: [MongooseModule],
+  exports: [MongooseModule],
 })
 export class ProfileModule {}

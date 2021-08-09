@@ -12,7 +12,7 @@ import { Profile, ProfileSchema } from './schema/profile.schema';
   imports: [
     HttpModule.registerAsync({
       useFactory: () => ({
-        timeout: 5000,
+        timeout: 9000,
         maxRedirects: 5,
       }),
     }),

@@ -34,11 +34,23 @@ export class ProfileService {
       });
       if (exists) throw new ConflictException();
 
-      // if (createProfile.fromGit) {
-      //   const { login, avatar_url, name, bio } = this.findGithubUser(
-      //     createProfile.gitUser,
-      //   );
-      // }
+      if (createProfile.fromGit) {
+        const payload: any = await this.findGithubUser(createProfile.gitUser);
+        const data: CreateProfileDTO = {
+          gitUser: createProfile.gitUser,
+          avatar: payload.avatar_url,
+          fullName: payload.name,
+          bio: payload.bio,
+          gitPublicRepos: payload.public_repos,
+          gitFollowers: payload.followers,
+          gitFollowing: payload.following,
+        };
+        // console.log(data);
+        const newProfile = new this.profileModel(data);
+        await newProfile.save();
+
+        return newProfile;
+      }
 
       const newProfile = new this.profileModel(createProfile);
       await newProfile.save();

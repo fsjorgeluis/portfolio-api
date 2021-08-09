@@ -1,5 +1,6 @@
 import {
   IsBoolean,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -8,13 +9,16 @@ import {
 
 export class CreateProfileDTO {
   @IsString()
-  photo: string; //img url
+  @IsOptional()
+  photo?: string; //img url
 
   @IsString()
-  avatar: string; //img url
+  @IsOptional()
+  avatar?: string; //img url
 
   @IsString()
-  fullName: string;
+  @IsOptional()
+  fullName?: string;
 
   @IsString()
   @MinLength(4)
@@ -22,15 +26,30 @@ export class CreateProfileDTO {
   gitUser: string;
 
   @IsString()
-  greet: string;
+  @IsOptional()
+  greet?: string;
 
   @IsString()
-  bio: string;
+  @IsOptional()
+  bio?: string;
 
   @IsString()
-  cv: string; //cv url
+  @IsOptional()
+  cv?: string; //cv url
 
   @IsBoolean()
   @IsOptional()
   fromGit?: boolean;
+
+  @IsNumber()
+  @IsOptional()
+  gitPublicRepos?: number;
+
+  @IsNumber()
+  @IsOptional()
+  gitFollowers?: number;
+
+  @IsNumber()
+  @IsOptional()
+  gitFollowing?: number;
 }

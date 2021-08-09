@@ -28,6 +28,11 @@ import { Profile, ProfileDocument } from './schema/profile.schema';
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
+  @Get('test/:gitUser')
+  async findGithunUser(@Param('gitUser') gitUser: string) {
+    return this.profileService.findGithubUser(gitUser);
+  }
+
   @Post()
   async create(@Body() createProfile: CreateProfileDTO): Promise<Profile> {
     return this.profileService.create(createProfile);

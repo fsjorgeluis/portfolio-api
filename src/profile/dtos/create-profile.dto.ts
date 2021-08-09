@@ -1,4 +1,10 @@
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateProfileDTO {
   @IsString()
@@ -23,4 +29,8 @@ export class CreateProfileDTO {
 
   @IsString()
   cv: string; //cv url
+
+  @IsBoolean()
+  @IsOptional()
+  fromGit?: boolean;
 }

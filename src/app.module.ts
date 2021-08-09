@@ -1,4 +1,3 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -14,7 +13,6 @@ import { TechModule } from './tech/tech.module';
 
 @Module({
   imports: [
-    HttpModule,
     MongooseModule.forRootAsync({
       imports: [DatabaseModule],
       useFactory: (databaseSerive: DatabaseService) => ({

@@ -1,3 +1,4 @@
+import { HttpService } from '@nestjs/axios';
 import {
   ConflictException,
   Injectable,
@@ -15,12 +16,15 @@ import {
 import { CreateProfileDTO, EditProfileDTO } from './dtos';
 import { IPaginationOptions, IRemove } from '../interfaces';
 import { Profile, ProfileDocument } from './schema/profile.schema';
+import { Observable, lastValueFrom } from 'rxjs';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectModel(Profile.name)
     private profileModel: PaginateModel<ProfileDocument>,
+    private httpService: HttpService,
   ) {}
 
   async create(createProfile: CreateProfileDTO): Promise<Profile> {
@@ -29,6 +33,12 @@ export class ProfileService {
         gitUser: createProfile.gitUser,
       });
       if (exists) throw new ConflictException();
+
+      // if (createProfile.fromGit) {
+      //   const { login, avatar_url, name, bio } = this.findGithubUser(
+      //     createProfile.gitUser,
+      //   );
+      // }
 
       const newProfile = new this.profileModel(createProfile);
       await newProfile.save();
@@ -109,5 +119,14 @@ export class ProfileService {
 
       throw new InternalServerErrorException();
     }
+  }
+
+  async findGithubUser(
+    gitUser: string,
+  ): Promise<Observable<AxiosResponse<any>>> {
+    const { data } = await lastValueFrom(
+      this.httpService.get(`https://api.github.com/users/${gitUser}`),
+    );
+    return data;
   }
 }

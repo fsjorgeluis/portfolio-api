@@ -10,6 +10,8 @@ import { WorkModule } from './work/work.module';
 import { AptitudeModule } from './aptitude/aptitude.module';
 import { TechModule } from './tech/tech.module';
 // import { PortfolioModule } from './portfolio/portfolio.module';
+import { AuthModule } from './auth/auth.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { TechModule } from './tech/tech.module';
     WorkModule,
     AptitudeModule,
     TechModule,
+    AuthModule,
+    AccountModule,
     // PortfolioModule,
   ],
   controllers: [AppController],

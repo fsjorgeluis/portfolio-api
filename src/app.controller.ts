@@ -21,9 +21,4 @@ export class AppController {
         .filter((item) => item !== undefined),
     };
   }
-
-  // @Get('/portfolio/:gitUser')
-  // getPortfolio(@Param('gitUser') gitUser: string): any {
-  //   return this.appService.getPortfolio(gitUser);
-  // }
 }
